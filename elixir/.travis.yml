@@ -4,7 +4,6 @@ language: elixir
 # OS matrix.
 os:
   - linux
-  - osx
 
 # Version matrix (language).
 elixir:
