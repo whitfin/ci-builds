@@ -1,0 +1,28 @@
+# Arbitrary build versioning.
+version: '{branch}-{build}'
+
+# To match TravisCI.
+skip_commits:
+  message: /\[skip ci\]/
+
+# Version matrix.
+environment:
+  matrix:
+    - elixir_version: 1.7.1
+    - elixir_version: 1.6.6
+    - elixir_version: 1.5.3
+    - elixir_version: 1.4.4
+    - elixir_version: 1.3.4
+    - elixir_version: 1.2.6
+
+# Installation of tooling.
+install:
+  - cinst elixir --version %elixir_version%
+  - refreshenv
+  - mix local.hex --force
+  - mix local.rebar --force
+  - mix deps.get
+
+# Test commands.
+test_script:
+  - mix test --trace
