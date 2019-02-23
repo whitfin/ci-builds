@@ -7,6 +7,7 @@ os:
 
 # Version matrix (language).
 elixir:
+  - 1.8
   - 1.7
   - 1.6
   - 1.5
@@ -16,7 +17,7 @@ elixir:
 
 # Version matrix (OTP).
 otp_release:
-  - 21.0
+  - 21.2
   - 20.3
   - 19.3
   - 18.3
@@ -25,17 +26,21 @@ otp_release:
 matrix:
   # Additional builds.
   include:
-    - elixir: 1.7
-      otp_release: 21.0
+    - elixir: 1.8
+      otp_release: 21.2
       script:
         - mix coveralls.travis --trace
-    - elixir: 1.7
-      otp_release: 21.0
+    - elixir: 1.8
+      otp_release: 21.2
       script:
         - mix credo --all --format=oneline
 
   # Incompatible pairs.
   exclude:
+    - elixir: 1.8
+      otp_release: 19.3
+    - elixir: 1.8
+      otp_release: 18.3
     - elixir: 1.7
       otp_release: 18.3
     - elixir: 1.6
