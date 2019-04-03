@@ -20,6 +20,30 @@ matrix:
   allow_failures:
     - rust: nightly
 
+  # Additional builds.
+  include:
+
+    # Clippy linting.
+    - rust: stable
+      os: linux
+      script:
+        - rustup component add clippy
+        - cargo clippy --all --profile test
+
+    # Format linting.
+    - rust: stable
+      os: linux
+      script:
+        - rustup component add rustfmt
+        - cargo fmt --all -- --check
+
+    - # Test coverage.
+    - rust: nightly
+      os: linux
+      script:
+        - cargo install cargo-tarpaulin
+        - cargo tarpaulin --ciserver travis-ci --coveralls $TRAVIS_JOB_ID
+
 # Cargo package caching.
 cache:
   cargo: true
