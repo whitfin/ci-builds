@@ -13,6 +13,10 @@ rust:
   - beta
   - nightly
 
+# Cargo caching.
+cache:
+  cargo: true
+  
 # Matrix modifications.
 matrix:
 
@@ -43,7 +47,3 @@ matrix:
       script:
         - cargo install cargo-tarpaulin
         - cargo tarpaulin --ciserver travis-ci --coveralls $TRAVIS_JOB_ID
-
-# Cargo package caching.
-cache:
-  cargo: true
