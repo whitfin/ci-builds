@@ -2,37 +2,30 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     name: Node.js ${{ matrix.node }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    container:
+      image: node:${{ matrix.node }}
     strategy:
+      fail-fast: false
       matrix:
-        os:
-          - macox-latest
-          - ubuntu-latest
-          - windows-latest
         node:
-          - 21.x
-          - 20.x
-          - 18.x
-          - 16.x
-          - 14.x
-          - 12.x
-          - 10.x
-          - 8.x
-          - 6.x
-          - 4.x
+          - lts
+          - 24
+          - 22
+          - 20
+          - 18
+          - 16
+          - 14
     steps:
-    - uses: actions/checkout@v4
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
-    - run: npm run lint
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test --if-present
+      - run: npm run lint --if-present
