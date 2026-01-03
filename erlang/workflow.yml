@@ -13,8 +13,11 @@ jobs:
     container:
       image: erlang:${{matrix.otp}}
     strategy:
+      fail-fast: false
       matrix:
         otp:
+          - 28
+          - 27
           - 26
           - 25
           - 24
